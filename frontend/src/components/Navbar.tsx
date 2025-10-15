@@ -1,21 +1,10 @@
-import { useState } from "react";
+type NavbarProps = {
+  theme: string;
+  toggleTheme: () => void;
+};
 
-function Navbar() {
-  const [dark, setDark] = useState(false);
-
-  const toggleTheme = () => {
-    setDark((prev) => !prev);
-    if (typeof window !== "undefined") {
-      const root = window.document.documentElement;
-      if (root.classList.contains("dark")) {
-        root.classList.remove("dark");
-      } else {
-        root.classList.add("dark");
-      }
-      // Dispatch a custom event
-      window.dispatchEvent(new Event("themechange"));
-    }
-  };
+function Navbar({ theme, toggleTheme }: NavbarProps) {
+  const isDark = theme === "dark";
 
   return (
     <nav className="bg-amber-100 dark:bg-gray-900 p-4 transition-colors duration-300">
@@ -29,7 +18,7 @@ function Navbar() {
             className="ml-4 p-2 rounded-full bg-gray-700 dark:bg-gray-800 hover:bg-gray-600 dark:hover:bg-gray-700 transition-colors"
             aria-label="Toggle dark mode"
           >
-            {dark ? (
+            {isDark ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5 text-yellow-300"
@@ -72,4 +61,5 @@ function Navbar() {
     </nav>
   );
 }
+
 export default Navbar;

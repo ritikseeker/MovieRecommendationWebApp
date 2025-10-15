@@ -1,28 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import bgLight from "../assets/bg-light1.jpg";
 import bgDark from "../assets/bg-dark.jpg";
 
-function HomePage() {
+type HomePageProps = {
+  theme: string;
+};
+
+function HomePage({ theme }: HomePageProps) {
   const [query, setQuery] = useState("");
   const [recommendations, setRecommendations] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [bgImg, setBgImg] = useState(bgLight);
+  const bgImg = theme === "dark" ? bgDark : bgLight;
 
-  useEffect(() => {
-    const updateBg = () => {
-      setBgImg(
-        document.documentElement.classList.contains("dark") ? bgDark : bgLight
-      );
-    };
-    updateBg();
-    window.addEventListener("themechange", updateBg);
-    window.addEventListener("storage", updateBg);
-    return () => {
-      window.removeEventListener("themechange", updateBg);
-      window.removeEventListener("storage", updateBg);
-    };
-  }, []);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -37,8 +27,12 @@ function HomePage() {
       if (!response.ok) throw new Error("Failed to fetch recommendations");
       const data = await response.json();
       setRecommendations(data.recommendations || []);
-    } catch (err: any) {
-      setError(err.message || "Something went wrong");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Something went wrong");
+      }
     } finally {
       setLoading(false);
     }
@@ -46,7 +40,7 @@ function HomePage() {
 
   return (
     <div
-      className="min-h-screen flex flex-col items-center justify-center px-4  transition-colors duration-300"
+      className="h-screen w-screen overflow-hidden flex flex-col items-center justify-center px-4  transition-colors duration-300"
       style={{
         backgroundImage: `url(${bgImg})`,
         backgroundSize: "400px 400px",
