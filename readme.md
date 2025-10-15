@@ -1,3 +1,9 @@
+# Movies Recommendation WebApp
+
+Uses React, Flask, Sqllite DB
+Suggests movies uing AI
+Has light/dark mode
+
 # How to Create a Google Generative AI API Key?
 
 ## I have used Google's and not OpenAI's api since my openAI credits are already exhausted
@@ -34,20 +40,38 @@ API_KEY="your_api_key"
 4. cd backend
 
 5. create virtual environment (like .venv), then activate using following command (in cmd) :
+
+```
    python -m venv .venv
    .venv\Scripts\activate
+```
 
 6. Install necessary libraries (present in requirements.txt)
+
    pip install -r requirements.txt
 
 7. Create .env file and save the API key(create previously) in it
 
-8.
-9. Run the main by running:
-   flask run
+8. Open a new terminal
 
-10. Go to frontend directory, by
-    cd ..
+9. Go to frontend directory, by
+
+```
+    cd MovieRecommendationWebApp
     cd frontend
+```
 
-11. Use vite and react to create frontend
+10. Install Dependencies
+    npm install
+
+11. To Run on dev server:
+    npm run dev
+
+12. Build it for production by,
+    npm run build
+
+13. To use the WebApp, make sure dist directory is created inside frontend directory when ran "npm run build". Now, run the flask server in the 1st terminal by :
+
+```
+flask run
+```
