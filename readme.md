@@ -19,7 +19,7 @@ https://aistudio.google.com/app/apikey
 API_KEY="your_api_key"
 ```
 
-# Steps
+# Steps to run
 
 1. Create your own personal api key from google ai studio (needed to access Google Generative AI (Gemini)). And save it as below:
 
@@ -27,13 +27,25 @@ API_KEY="your_api_key"
 API_KEY="your_api_key"
 ```
 
-2. create virtual envronment (like .venv), then activate using following command (in cmd) :
+2. git clone https://gitfront.io/r/ritikseeker/HsQF54WATcdi/MovieRecommendationWebApp.git
+
+3. cd MovieRecommendationWebApp
+
+4. cd backend
+
+5. create virtual envronment (like .venv), then activate using following command (in cmd) :
    .venv\Scripts\activate
 
-3. Install necessary libraries (present in requirements.txt)
+6. Install necessary libraries (present in requirements.txt)
+   pip install -r requirements.txt
 
-4. Create db from data in excel file by running:
-   python main.py
+7.
 
-5. Run the main by running:
+8. Run the main by running:
    flask run
+
+9. Go to frontend directory, by
+   cd ..
+   cd frontend
+
+10. Use vite and react to create frontend
