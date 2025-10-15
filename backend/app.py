@@ -1,11 +1,10 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, redirect, render_template, send_from_directory
 from flask_cors import CORS
 import google.generativeai as genai
 from dotenv import load_dotenv
 import os
 from utils.save_to_db import save_recommendations_to_db
 load_dotenv()
-from flask import Flask, redirect, request, render_template
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -25,9 +24,6 @@ CORS(app)
 GOOGLE_API_KEY = os.getenv("API_KEY")
 genai.configure(api_key=GOOGLE_API_KEY)
 
-@app.route('/', methods=['GET'])
-def home():
-    return "Home Page"
 
 @app.route('/api/recommend', methods=['POST'])
 def recommend_movies():
@@ -52,7 +48,24 @@ def recommend_movies():
     except Exception as e:
         print("Error in /api/recommend:", e)
         return jsonify({"error": str(e)}), 500
-        
+
+# Serve static files from the frontend's dist folder
+@app.route('/static/<path:filename>')
+def static_files(filename):
+    return send_from_directory(os.path.join(os.pardir, 'frontend', 'dist', 'static'), filename)
+
+# Serve the frontend's index.html for all other routes (for SPA support)
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def serve_frontend(path):
+    dist_dir = os.path.join(os.pardir, 'frontend', 'dist')
+    file_path = os.path.join(dist_dir, path)
+    if path != "" and os.path.exists(file_path):
+        return send_from_directory(dist_dir, path)
+    else:
+        return send_from_directory(dist_dir, 'index.html')
+
+
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
