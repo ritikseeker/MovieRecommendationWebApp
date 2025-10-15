@@ -27,25 +27,27 @@ API_KEY="your_api_key"
 API_KEY="your_api_key"
 ```
 
-2. git clone https://gitfront.io/r/ritikseeker/HsQF54WATcdi/MovieRecommendationWebApp.git
+2. git clone https://github.com/ritikseeker/MovieRecommendationWebApp.git
 
 3. cd MovieRecommendationWebApp
 
 4. cd backend
 
-5. create virtual envronment (like .venv), then activate using following command (in cmd) :
+5. create virtual environment (like .venv), then activate using following command (in cmd) :
+   python -m venv .venv
    .venv\Scripts\activate
 
 6. Install necessary libraries (present in requirements.txt)
    pip install -r requirements.txt
 
-7.
+7. Create .env file and save the API key(create previously) in it
 
-8. Run the main by running:
+8.
+9. Run the main by running:
    flask run
 
-9. Go to frontend directory, by
-   cd ..
-   cd frontend
+10. Go to frontend directory, by
+    cd ..
+    cd frontend
 
-10. Use vite and react to create frontend
+11. Use vite and react to create frontend
